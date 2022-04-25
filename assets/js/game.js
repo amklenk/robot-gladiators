@@ -23,13 +23,15 @@ var fight = function (enemyName) {
             if (confirmSkip) {
                 window.alert(playerName + " has decided to skip this fight. Goodbye!");
                 //subtract money from playerMoney for skipping
-                playerMoney = playerMoney - 10;
+                playerMoney = Math.max(0, playerMoney - 10);
                 console.log("playerMoney", playerMoney);
                 break;
             }
         }
         //the other case is that the player chooses to fight. Then the player attacks the enemy first.
-        enemyHealth = enemyHealth - playerAttack;
+        // generate random damage value based on player's attack power
+        var damage = randomNumber(playerAttack - 3, playerAttack);
+        enemyHealth = Math.max(0, enemyHealth - damage);
         console.log(
             playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
         );
@@ -44,7 +46,8 @@ var fight = function (enemyName) {
         }
 
         //Then the enemy attacks the player
-        playerHealth = playerHealth - enemyAttack;
+        var damage = randomNumber(enemyAttack - 3, enemyAttack);
+        playerHealth = Math.max(0, playerHealth - damage);
         //Log a resulting message to the console so we know that it worked.
         console.log(
             enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
@@ -72,7 +75,7 @@ var startGame = function () {
             //pick new enemy from array
             var pickedEnemyName = enemyNames[i];
             //reset enemyHealth before starting new fight
-            enemyHealth = 50;
+            enemyHealth = randomNumber(40, 60);
             //debugger for later testing;
 
             //pass picked name through function (enemyName parameter)
@@ -164,5 +167,12 @@ var shop = function () {
             break;
     }
 };
+
+//fumction to generate a random value
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+    return value;
+};
+
 // start first game when page loads
 startGame();
