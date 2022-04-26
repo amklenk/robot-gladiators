@@ -1,3 +1,10 @@
+//functions
+//fumction to generate a random value
+var randomNumber = function (min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+    return value;
+};
+
 //fight function works as long as the player and the enemy are both alive (health > 0)
 var fight = function (enemy) {
     while (playerInfo.health > 0 && enemy.health > 0) {
@@ -140,15 +147,20 @@ var shop = function () {
     }
 };
 
-//fumction to generate a random value
-var randomNumber = function (min, max) {
-    var value = Math.floor(Math.random() * (max - min + 1) + min);
-    return value;
+//function to set name
+var getPlayerName = function() {
+    var name = "";
+while(name === "" || name === null) {
+    name = prompt("What is your robot's name?");
+}
+console.log("Your robot's name is " + name);
+return name;
 };
 
+//objects
 //Player enters name, health and attack are assigned. These are variables so that we can keep track of the player's data.
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
